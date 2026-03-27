@@ -3,7 +3,6 @@
 // =====================================================================
 
 const myEvents = {
-    // --- วันหยุดราชการ/วันสำคัญ ปี 2026 ---
     "2026-01-01": [{ text: "วันขึ้นปีใหม่", type: "holiday" }, { text: "ปาร์ตี้ปีใหม่ / แยกส่วน-ริก", type: "party" }],
     "2026-03-03": [{ text: "วันมาฆบูชา", type: "holiday" }],
     "2026-04-06": [{ text: "วันจักรี", type: "holiday" }],
@@ -24,7 +23,6 @@ const myEvents = {
     "2026-12-10": [{ text: "วันรัฐธรรมนูญ", type: "holiday" }],
     "2026-12-31": [{ text: "วันสิ้นปี", type: "holiday" }],
 
-    // --- เดือน มกราคม ---
     "2026-01-02": [{ text: "ปาร์ตี้ปีใหม่ / แยกส่วน-ริก", type: "party" }],
     "2026-01-03": [{ text: "ปาร์ตี้ปีใหม่", type: "party" }, { text: "ส่งงานอนิเมชัน", type: "anim" }],
     "2026-01-04": [{ text: "ปาร์ตี้ปีใหม่", type: "party" }],
@@ -39,7 +37,6 @@ const myEvents = {
     "2026-01-30": [{ text: "ส่งงานอนิเมชัน", type: "anim" }],
     "2026-01-31": [{ text: "แยกส่วน-ทำการริก", type: "anim" }],
 
-    // --- เดือน กุมภาพันธ์ ---
     "2026-02-01": [{ text: "แยกส่วน-ทำการริก", type: "anim" }],
     "2026-02-02": [{ text: "ส่งงานอนิเมชัน", type: "anim" }],
     "2026-02-08": [{ text: "แยกส่วน-ทำการริก", type: "anim" }],
@@ -52,30 +49,23 @@ const myEvents = {
     "2026-02-17": [{ text: "แยกส่วน-ทำการริก", type: "anim" }],
     "2026-02-18": [{ text: "ส่งงานอนิเมชัน", type: "anim" }],
 
-    // --- เดือน มีนาคม ---
     "2026-03-07": [{ text: "แยกส่วน-ทำการริก", type: "anim" }],
     "2026-03-08": [{ text: "แยกส่วน-ทำการริก", type: "anim" }],
     "2026-03-09": [{ text: "โปรเจคอนิเมชัน (เสร็จแล้ว)", type: "anim" }],
     "2026-03-22": [{ text: "ถ่ายภาพนางแบบ (กลางภาค)", type: "project" }],
-    "2026-03-26": [{ text: "รับจ้างเเต่งภาพนางเเบบ (ปลายภาค)", type: "project" }, { text: "ทำโปรเจคอนิเมชันใหม่", type: "anim" }],
-    "2026-03-31": [{ text: "รับจ้างเเต่งภาพนางเเบบ (กลางภาค)", type: "project" }],
+    "2026-03-26": [{ text: "ถ่ายภาพนางแบบ (ปลายภาค)", type: "project" }, { text: "ทำโปรเจคอนิเมชันใหม่", type: "anim" }],
 
-    // --- เดือน เมษายน ---
-    "2026-04-18": [{ text: "ทำโปรเจคมหาลัย", type: "party" }],
-
-    // --- เดือน พฤษภาคม ---
     "2026-05-03": [{ text: "เที่ยวพัทยา สาขาดิจิทัลอาร์ท", type: "party" }],
     "2026-05-04": [{ text: "เที่ยวพัทยา สาขาดิจิทัลอาร์ท", type: "party" }],
     "2026-05-05": [{ text: "เที่ยวพัทยา สาขาดิจิทัลอาร์ท", type: "party" }],
     "2026-05-06": [{ text: "เที่ยวพัทยา สาขาดิจิทัลอาร์ท", type: "party" }],
 
-    // --- เดือน มิถุนายน ---
     "2026-06-04": [{ text: "ลงทะเบียนเรียน", type: "project" }],
     "2026-06-08": [{ text: "เปิดเทอม", type: "project" }]
 };
 
 // =====================================================================
-// โซนที่ 2: เครื่องยนต์สร้างปฏิทิน 12 เดือนอัตโนมัติ
+// โซนที่ 2: เครื่องยนต์สร้างปฏิทิน และระบบ Popup
 // =====================================================================
 
 const year = 2026;
@@ -89,15 +79,11 @@ for (let m = 0; m < 12; m++) {
     let monthNum = m + 1;
     let noteContent = "";
     let noteClass = "";
-    let taskNotesContent = ""; // ตัวแปรใหม่สำหรับเก็บเนื้อหาใน Task & Notes
+    let taskNotesContent = "";
 
-    // เช็คเดือนเพื่อเปลี่ยนสี Note และเนื้อหา Task & Notes
     if (monthNum >= 3 && monthNum <= 5) {
-        // เดือน 3, 4, 5 (มี.ค. - พ.ค.)
         noteContent = "🏖️ ช่วงปิดเทอมเเละช่วยงานที่บ้าน";
         noteClass = "note-red";
-        
-        // อัปเดตตารางเวลาทำงานช่วงช่วยแม่ขายของ
         taskNotesContent = `
             <li style="list-style-type: none; margin-left: -20px; font-weight: bold; color: #d32f2f;">⏰ 07:00 - 19:00</li>
             <li style="margin-bottom: 8px;">นั่งขายของช่วยแม่ (เต็มวัน)</li>
@@ -105,26 +91,15 @@ for (let m = 0; m < 12; m++) {
             <li>เวลาทำงานหลัก (แอนิเมชัน / โปรเจกต์)</li>
         `;
     } else if (monthNum === 10) {
-        // เดือน 10 (ต.ค.)
         noteContent = "🍂 ช่วงปิดเทอมเล็ก";
         noteClass = "note-orange";
-        taskNotesContent = `
-            <li>แยกส่วน / ทำการริก</li>
-            <li>แอนิเมชันลงกลุ่ม</li>
-            <li>โปรเจกต์มหาลัย</li>
-        `;
+        taskNotesContent = `<li>แยกส่วน / ทำการริก</li><li>แอนิเมชันลงกลุ่ม</li><li>โปรเจกต์มหาลัย</li>`;
     } else {
-        // เดือนที่เหลือ (ม.ค.-ก.พ., มิ.ย.-ก.ย., พ.ย.-ธ.ค.)
         noteContent = "📚 ช่วงเปิดเทอม";
         noteClass = "note-green";
-        taskNotesContent = `
-            <li>แยกส่วน / ทำการริก</li>
-            <li>แอนิเมชันลงกลุ่ม</li>
-            <li>โปรเจกต์มหาลัย</li>
-        `;
+        taskNotesContent = `<li>แยกส่วน / ทำการริก</li><li>แอนิเมชันลงกลุ่ม</li><li>โปรเจกต์มหาลัย</li>`;
     }
 
-    // สร้างกล่อง Note ด้านข้าง
     let sidebarNote = `
         <div class="sidebar-note-container">
             <div class="sidebar-note ${noteClass}">${noteContent}</div>
@@ -157,11 +132,9 @@ for (let m = 0; m < 12; m++) {
     for (let d = 1; d <= daysInMonth; d++) {
         let dateStr = `${year}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
         let dayOfWeek = new Date(year, m, d).getDay(); 
-
         let cellEventsHTML = "";
         let hasEvent = false;
 
-        // ตารางเรียน (สิ้นสุดสัปดาห์ที่ 2 ของมีนาคม ประมาณวันที่ 14)
         let isClassPeriod = (m === 0 || m === 1 || (m === 2 && d <= 14));
         if (isClassPeriod) {
             if (dayOfWeek === 1) { cellEventsHTML += `<div class="event event-class">13:00 วิทย์สุขภาพ</div>`; hasEvent = true; }
@@ -181,7 +154,6 @@ for (let m = 0; m < 12; m++) {
             }
         }
 
-        // ดึงข้อมูลอีเวนต์และวันหยุด
         if (myEvents[dateStr]) {
             myEvents[dateStr].forEach(ev => {
                 cellEventsHTML += `<div class="event event-${ev.type}">${ev.text}</div>`;
@@ -190,10 +162,10 @@ for (let m = 0; m < 12; m++) {
         }
 
         let cellClass = hasEvent ? "day-cell has-event" : "day-cell";
-        htmlString += `<div class="${cellClass}"><div class="date-num">${d}</div>${cellEventsHTML}</div>`;
+        // เพิ่ม data-date เพื่อเอาไว้ให้ระบบ Popup ดึงไปใช้
+        htmlString += `<div class="${cellClass}" data-date="${d} ${monthNames[m]} ${year}"><div class="date-num">${d}</div>${cellEventsHTML}</div>`;
     }
 
-    // แถบ Sidebar (ดึง taskNotesContent มาแสดง)
     htmlString += `
                 </div> 
                 
@@ -201,9 +173,7 @@ for (let m = 0; m < 12; m++) {
                     ${sidebarNote}
                     <div class="sidebar-box green-box">
                         <div class="sidebar-title">Task & Notes</div>
-                        <ul class="sidebar-list">
-                            ${taskNotesContent}
-                        </ul>
+                        <ul class="sidebar-list">${taskNotesContent}</ul>
                     </div>
                     <div class="sidebar-box">
                         <div class="sidebar-title">Legend</div>
@@ -213,10 +183,57 @@ for (let m = 0; m < 12; m++) {
                         <div class="legend-item"><div class="color-box bg-green"></div> โปรเจกต์/มหาลัย</div>
                     </div>
                 </div>
-                
             </div>
         </div>
     `;
+
+    section.innerHTML = htmlString;
+    container.appendChild(section);
+}
+
+// =====================================================================
+// ระบบ Popup (Modal) เวลากดที่ช่องวันที่
+// =====================================================================
+const modal = document.getElementById("event-modal");
+const closeModal = document.getElementById("close-modal");
+const modalDate = document.getElementById("modal-date");
+const modalEvents = document.getElementById("modal-events");
+
+// ใส่ Event Listener ให้ปฏิทินทั้งหมด (ดักจับการคลิกที่ช่อง day-cell)
+container.addEventListener('click', function(e) {
+    let cell = e.target.closest('.day-cell');
+    
+    // ถ้ากดโดนช่องว่างๆ ให้ข้ามไป
+    if (!cell || cell.classList.contains('empty')) return;
+
+    // ดึงวันที่จาก data-date ที่ซ่อนไว้
+    let fullDate = cell.getAttribute('data-date');
+    modalDate.innerText = fullDate;
+
+    // ดึง Event ทั้งหมดที่อยู่ในช่องนั้นมาแสดงใน Popup
+    let events = cell.querySelectorAll('.event');
+    let eventsHTML = "";
+
+    if (events.length > 0) {
+        events.forEach(ev => {
+            // เอา Class สีต่างๆ มาใส่ใน Popup ให้เหมือนในปฏิทิน
+            eventsHTML += `<div class="${ev.className}">${ev.innerText}</div>`;
+        });
+    } else {
+        eventsHTML = "<div class='no-event'>ไม่มีตารางงานในวันนี้</div>";
+    }
+
+    modalEvents.innerHTML = eventsHTML;
+    modal.classList.add('show');
+});
+
+// ปิด Popup เมื่อกดกากบาท
+closeModal.addEventListener('click', () => { modal.classList.remove('show'); });
+
+// ปิด Popup เมื่อกดพื้นที่สีดำรอบนอก
+window.addEventListener('click', (e) => {
+    if (e.target === modal) { modal.classList.remove('show'); }
+});
 
     section.innerHTML = htmlString;
     container.appendChild(section);
