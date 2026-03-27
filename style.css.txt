@@ -1,0 +1,71 @@
+/* ล้างค่าเริ่มต้น */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body, html { height: 100%; overflow: hidden; background-color: #1a1a1a; }
+
+/* การเลื่อนปัดขึ้นลงทีละเดือน */
+.calendar-container {
+    height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth;
+}
+
+.month-section {
+    height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column;
+    align-items: center; padding: 20px; background-color: #f8f9fa; 
+}
+
+/* ส่วนหัวปฏิทิน */
+.month-header { 
+    display: flex; justify-content: flex-start; align-items: flex-end;
+    margin-bottom: 20px; width: 100%; max-width: 1200px; flex-shrink: 0;
+    border-bottom: 2px solid #ccc; padding-bottom: 10px;
+}
+.month-header-left { display: flex; align-items: baseline; gap: 15px; }
+.month-header-left h1 { font-size: 3rem; color: #111; font-weight: 900; text-transform: uppercase; }
+.month-header-left .year-badge { background: #e8f5e9; color: #2e7d32; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; }
+
+/* พื้นที่เลื่อนซ้ายขวาบนมือถือ */
+.scroll-wrapper { width: 100%; max-width: 1200px; overflow-x: auto; flex-grow: 1; padding-bottom: 10px; }
+.layout-grid { display: flex; gap: 20px; min-width: 1000px; height: 100%; }
+
+/* ตารางปฏิทิน (ด้านซ้าย) */
+.calendar-main { flex: 3; display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: auto repeat(5, 1fr); gap: 12px; }
+.day-name { font-weight: 900; text-align: center; color: #333; padding-bottom: 10px; font-size: 1.1rem; text-transform: uppercase; }
+
+.day-cell {
+    border-radius: 12px; background: #ffffff; padding: 10px; display: flex; flex-direction: column;
+    min-height: 90px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.day-cell.empty { background: transparent; box-shadow: none; } 
+.date-num { font-weight: 800; margin-bottom: 5px; color: #666; font-size: 1rem; }
+.day-cell.has-event { background-color: #fdfdfd; }
+
+/* ป้ายกิจกรรมประเภทต่างๆ */
+.event { margin-bottom: 4px; padding: 6px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; line-height: 1.2; word-break: break-word; }
+.event-holiday { background-color: #ffcdd2; color: #b71c1c; border-left: 3px solid #b71c1c; } 
+.event-anim { background-color: #e1bee7; color: #4a148c; border-left: 3px solid #8e24aa; }    
+.event-class { background-color: #bbdefb; color: #0d47a1; border-left: 3px solid #1e88e5; }   
+.event-project { background-color: #dcedc8; color: #33691e; border-left: 3px solid #7cb342; } 
+.event-party { background-color: #ffccbc; color: #bf360c; border-left: 3px solid #f4511e; }   
+
+/* แถบเมนูด้านขวา (Sidebar) */
+.sidebar { flex: 1; display: flex; flex-direction: column; gap: 15px; }
+.sidebar-box { background: #ffffff; border-radius: 15px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+.sidebar-box.green-box { background-color: #e8f5e9; }
+.sidebar-title { font-weight: 900; font-size: 1.2rem; margin-bottom: 15px; text-transform: uppercase; line-height: 1.2; }
+.sidebar-list { list-style-type: disc; padding-left: 20px; font-size: 0.9rem; color: #444; line-height: 1.8; }
+
+/* ตกแต่ง Note ใน Sidebar แบบแยกสีตามฤดูกาล */
+.sidebar-note-container { display: flex; flex-direction: column; gap: 8px; }
+.sidebar-note { padding: 15px; border-radius: 12px; font-weight: bold; font-size: 0.95rem; }
+
+.note-red { background-color: #ffebee; color: #c62828; border-left: 4px solid #ef5350; }
+.note-green { background-color: #e8f5e9; color: #2e7d32; border-left: 4px solid #66bb6a; }
+.note-orange { background-color: #fff8e1; color: #f57f17; border-left: 4px solid #fbc02d; }
+.note-subtext { font-size: 0.75rem; color: #888; margin-left: 5px; font-style: italic; font-weight: normal; }
+
+/* จุดสีแถบ Legend */
+.legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.85rem; color: #555; font-weight: 600; }
+.color-box { width: 25px; height: 15px; border-radius: 6px; }
+.bg-green { background-color: #dcedc8; }
+.bg-blue { background-color: #bbdefb; }
+.bg-purple { background-color: #e1bee7; }
+.bg-red { background-color: #ffcdd2; }
